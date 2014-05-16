@@ -1,5 +1,6 @@
 % to build, do something like
 % rubber --pdf two-state
+
 \documentclass{article}
 
 \usepackage{graphics}
@@ -51,9 +52,10 @@
 
 \section{Introduction}
 
-In this technical note, we review properties of the two-state continuous-time
-Markov chain.
-
+In this technical note we review properties of the two-state continuous-time
+Markov chain over states $\{ \Ao, \Bo \}$ with positive rates
+$\Ao \to \Bo = \Pa$ and $\Bo \to \Ao = \Pb$.
+%
 \begin{equation}
 \bordermatrix{
 	    & \Ao  & \Bo  \cr
@@ -61,8 +63,85 @@ Markov chain.
 	\Bo & \Pb & \bs  \cr
 }
 \end{equation}
+%
+In more complicated models the rate matrix representation is simplified
+by black squares on the diagonal representing values that force
+rows to sum to zero, but for the simple 2-state model this notation
+does not buy us much so we can write the rate matrix more explicitly.
+%
+\begin{equation}
+\bordermatrix{
+	    & \Ao  & \Bo  \cr
+	\Ao & -\Pa  & \Pa \cr
+	\Bo & \Pb & -\Pb  \cr
+}
+\end{equation}
 
-\section{Stationary distribution and time-reversibility}
+\section{Stationary distribution}
+
+The stationary distribution
+$\left( \pi_\Ao, \pi_\Bo \right)$
+should satisfy
+\begin{align}
+\left( \pi_\Ao, \pi_\Bo \right)
+\begin{pmatrix}
+	-\Pa & \Pa \\
+	\Pb & -\Pb
+\end{pmatrix}
+&= 0 \\
+0 &< \pi \\
+\sum_i \pi_i &= 1
+\end{align}
+%
+so
+\begin{align}
+\left( \pi_\Ao, \pi_\Bo \right)
+&=
+\left( \frac{\Pb}{\Pa + \Pb}, \frac{\Pa}{\Pa + \Pb} \right) \\
+&\propto
+\left( \Pb, \Pa \right)
+\end{align}
+%
+Because the model is in continuous time
+and each state can reach every other state,
+we do not need to worry about subtleties involving reducibility or periodicity.
+
+\section{Time reversibility}
+
+A model is said to be time-reversible when it satisfies the
+`detailed balance' equations which define a kind of `pairwise equilibrium'.
+Because this model has only two states, the `pairwise equilibrium'
+is the same as the overall equilibrium, so this model is time-reversible.
+
+\section{Expected rate}
+
+This scalar function of the rate matrix is the expected rate
+away from the current state.
+For this model, it is
+\begin{align}
+\text{expected rate}
+&=
+\left( \pi_\Ao \Pa + \pi_\Bo \Pb \right) \\
+&=
+\frac{2 \Pa \Pb}{\Pa + \Pb}
+\end{align}
+This expected rate
+$\text{E} \left( \Pa, \Pb \right)$
+is related to the initial rate at which
+information about the initial state is lost.
+Note that
+$\text{E} \left( t \Pa, t \Pb \right) = t \text{E} \left( \Pa, \Pb \right)$.
+
+\section{Spectrum}
+
+The eigenvalues of the rate matrix are
+$\{ 0, -\left( \Pa + \Pb \right) \}$.
+The nonzero eigenvalue
+$\lambda_2 \left( \Pa, \Pb \right)$
+is related to the eventual rate
+at which information about the initial state is lost.
+Note that
+$\lambda_2 \left( t \Pa, t \Pb \right) = t \lambda_2 \left( \Pa, \Pb \right)$.
 
 
 \end{document}
