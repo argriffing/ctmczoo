@@ -143,5 +143,18 @@ at which information about the initial state is lost.
 Note that
 $\lambda_2 \left( t \Pa, t \Pb \right) = t \lambda_2 \left( \Pa, \Pb \right)$.
 
+\section{Transition matrix}
+
+The transition matrix over a unit time interval
+is the matrix exponential of the rate matrix.
+\begin{equation}
+	\frac{e^{-\left( \Pa + \Pb \right)}}{\Pa + \Pb}
+	\begin{pmatrix}
+		\Pb e^{\Pa + \Pb} + \Pa &
+		\Pa e^{\Pa + \Pb} - \Pa \\
+		\Pb e^{\Pa + \Pb} - \Pb &
+		\Pa e^{\Pa + \Pb} + \Pb
+	\end{pmatrix}
+\end{equation}
 
 \end{document}
