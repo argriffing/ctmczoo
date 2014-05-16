@@ -1,0 +1,68 @@
+% to build, do something like
+% rubber --pdf two-state
+\documentclass{article}
+
+\usepackage{graphics}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{mathtools}
+
+% required for \blacksquare
+\usepackage{amssymb}
+
+\usetikzlibrary{matrix,positioning}
+
+% label the states
+\providecommand{\Ao}{\text{a}}
+\providecommand{\Bo}{\text{b}}
+\providecommand{\Co}{\text{c}}
+\providecommand{\Do}{\text{d}}
+
+% label the two parameters
+\providecommand{\Pa}{\alpha}
+\providecommand{\Pb}{\beta}
+
+% for drawing block matrix structure
+\providecommand{\bs}{\blacksquare}
+\providecommand{\bx}{\Box}
+\providecommand{\cd}{\cdot}
+
+% the default max matrix dimensions in amsmath is ten
+\setcounter{MaxMatrixCols}{20}
+
+% this is copied from the internet
+% and its purpose is to compensate for bad vertical spacing in amsmath pmatrix
+% by letting you do things like \begin{pmatrix}[1.5]
+\makeatletter
+\renewcommand*\env@matrix[1][\arraystretch]{%
+	  \edef\arraystretch{#1}%
+	    \hskip -\arraycolsep
+	      \let\@ifnextchar\new@ifnextchar
+	        \array{*\c@MaxMatrixCols c}}
+		\makeatother
+
+
+\begin{document}
+
+
+%\title{Expected rate vs. ``spectral rate''}
+%\author{Alex Griffing}
+%\maketitle
+
+\section{Introduction}
+
+In this technical note, we review properties of the two-state continuous-time
+Markov chain.
+
+\begin{equation}
+\bordermatrix{
+	    & \Ao  & \Bo  \cr
+	\Ao & \bs  & \Pa \cr
+	\Bo & \Pb & \bs  \cr
+}
+\end{equation}
+
+\section{Stationary distribution and time-reversibility}
+
+
+\end{document}

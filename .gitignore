@@ -1,0 +1,7 @@
+# compiled python source
+*.pyc
+
+# LaTeX spam
+*.log
+*.aux
+
