@@ -54,13 +54,15 @@
 
 In this technical note we review properties of the two-state continuous-time
 Markov chain over states $\{ \Ao, \Bo \}$ with positive rates
-$\Ao \to \Bo = \Pa$ and $\Bo \to \Ao = \Pb$.
+$\Ao \to \Bo = t \Pa$ and $\Bo \to \Ao = t \Pb$.
+This is deliberately over-parameterized with three variables so that
+the effects of scaling either or both of the rates can be easily observed.
 %
 \begin{equation}
 \bordermatrix{
 	    & \Ao  & \Bo  \cr
-	\Ao & \bs  & \Pa \cr
-	\Bo & \Pb & \bs  \cr
+	\Ao & \bs  & t \Pa \cr
+	\Bo & t \Pb & \bs  \cr
 }
 \end{equation}
 %
@@ -72,8 +74,8 @@ does not buy us much so we can write the rate matrix more explicitly.
 \begin{equation}
 \bordermatrix{
 	    & \Ao  & \Bo  \cr
-	\Ao & -\Pa  & \Pa \cr
-	\Bo & \Pb & -\Pb  \cr
+	\Ao & - t \Pa  & t \Pa \cr
+	\Bo & t \Pb & - t \Pb  \cr
 }
 \end{equation}
 
@@ -83,14 +85,15 @@ The stationary distribution
 $\left( \pi_\Ao, \pi_\Bo \right)$
 should satisfy
 \begin{align}
+0 &=
 \left( \pi_\Ao, \pi_\Bo \right)
 \begin{pmatrix}
-	-\Pa & \Pa \\
-	\Pb & -\Pb
-\end{pmatrix}
-&= 0 \\
-0 &< \pi \\
-\sum_i \pi_i &= 1
+	- t \Pa &  t \Pa \\
+	t \Pb & - t \Pb
+\end{pmatrix} \\
+0 &< \pi_\Ao \\
+0 &< \pi_\Bo \\
+1 &= \pi_\Ao + \pi_\Bo
 \end{align}
 %
 so
@@ -121,39 +124,37 @@ For this model, it is
 \begin{align}
 \text{expected rate}
 &=
-\left( \pi_\Ao \Pa + \pi_\Bo \Pb \right) \\
+\left( \pi_\Ao t \Pa + \pi_\Bo t \Pb \right) \\
 &=
-\frac{2 \Pa \Pb}{\Pa + \Pb}
+\frac{2 t \Pa \Pb}{\Pa + \Pb}
 \end{align}
-This expected rate
-$\text{E} \left( \Pa, \Pb \right)$
-is related to the initial rate at which
-information about the initial state is lost.
-Note that
-$\text{E} \left( t \Pa, t \Pb \right) = t \text{E} \left( \Pa, \Pb \right)$.
+Note that the expected rate is proportional to the rate matrix scaling
+factor $t$.
+This proportionality is true in general, not just for this particular model.
 
 \section{Spectrum}
 
 The eigenvalues of the rate matrix are
-$\{ 0, -\left( \Pa + \Pb \right) \}$.
+$\{ 0, - t \left( \Pa + \Pb \right) \}$.
 The nonzero eigenvalue
-$\lambda_2 \left( \Pa, \Pb \right)$
+$\lambda_2 \left( \Pa, \Pb, t \right)$
 is related to the eventual rate
 at which information about the initial state is lost.
-Note that
-$\lambda_2 \left( t \Pa, t \Pb \right) = t \lambda_2 \left( \Pa, \Pb \right)$.
+Note that this eigenvalue is proportional to the rate matrix scaling
+factor $t$.
+Again, this proportionality is true in general,
+not just for this particular model.
 
 \section{Transition matrix}
 
-The transition matrix over a unit time interval
-is the matrix exponential of the rate matrix.
+The transition matrix is the matrix exponential of the rate matrix.
 \begin{equation}
-	\frac{e^{-\left( \Pa + \Pb \right)}}{\Pa + \Pb}
+	\frac{e^{- t \left( \Pa + \Pb \right)}}{\Pa + \Pb}
 	\begin{pmatrix}
-		\Pb e^{\Pa + \Pb} + \Pa &
-		\Pa e^{\Pa + \Pb} - \Pa \\
-		\Pb e^{\Pa + \Pb} - \Pb &
-		\Pa e^{\Pa + \Pb} + \Pb
+		\Pb e^{t \left( \Pa + \Pb \right) } + \Pa &
+		\Pa e^{t \left( \Pa + \Pb \right) } - \Pa \\
+		\Pb e^{t \left( \Pa + \Pb \right) } - \Pb &
+		\Pa e^{t \left( \Pa + \Pb \right) } + \Pb
 	\end{pmatrix}
 \end{equation}
 
