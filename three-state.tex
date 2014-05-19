@@ -1,0 +1,162 @@
+% to build, do something like
+% rubber --pdf three-state
+
+
+\documentclass{article}
+
+\usepackage{graphics}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{mathtools}
+
+% required for \blacksquare
+\usepackage{amssymb}
+
+\usetikzlibrary{matrix,positioning}
+
+% label the states
+\providecommand{\Ao}{\text{a}}
+\providecommand{\Bo}{\text{b}}
+\providecommand{\Co}{\text{c}}
+\providecommand{\Do}{\text{d}}
+
+% label the two parameters
+\providecommand{\Pa}{\alpha}
+\providecommand{\Pb}{\beta}
+
+% for drawing block matrix structure
+\providecommand{\bs}{\blacksquare}
+\providecommand{\bx}{\Box}
+\providecommand{\cd}{\cdot}
+
+% the default max matrix dimensions in amsmath is ten
+\setcounter{MaxMatrixCols}{20}
+
+% this is copied from the internet
+% and its purpose is to compensate for bad vertical spacing in amsmath pmatrix
+% by letting you do things like \begin{pmatrix}[1.5]
+\makeatletter
+\renewcommand*\env@matrix[1][\arraystretch]{%
+	  \edef\arraystretch{#1}%
+	    \hskip -\arraycolsep
+	      \let\@ifnextchar\new@ifnextchar
+	        \array{*\c@MaxMatrixCols c}}
+		\makeatother
+
+
+\begin{document}
+
+
+%\title{Expected rate vs. ``spectral rate''}
+%\author{Alex Griffing}
+%\maketitle
+
+\section{Introduction}
+
+In this technical note we review properties of a particular three-state
+continuous-time Markov chain over states $\{ \Ao, \Bo, \Co \}$
+with positive rates, deliberately over-parameterized with
+three variables so that the effects of scaling either or both of the rates
+can be easily observed.
+%
+\begin{equation}
+\bordermatrix{
+	    & \Ao  & \Bo & \Co \cr
+	\Ao & \bs  & t \Pa & \cdot \cr
+	\Bo & t \Pb & \bs & t \Pb \cr
+	\Co & \cdot & t \Pa & \bs  \cr
+}
+\end{equation}
+
+\section{Stationary distribution}
+
+The stationary distribution
+$\left( \pi_\Ao, \pi_\Bo, \pi_\Co \right)$
+should satisfy
+\begin{align}
+0 &=
+\left( \pi_\Ao, \pi_\Bo, \pi_\Co \right)
+\begin{pmatrix}
+	-t \Pa & t \Pa & 0 \\
+	t \Pb & - 2 t \Pb & t \Pb \\
+	0 & t \Pa & -t \Pa
+\end{pmatrix} \\
+0 &< \pi_{i} \\
+1 &= \pi_\Ao + \pi_\Bo + \pi_\Co
+\end{align}
+%
+so
+\begin{align}
+\left( \pi_\Ao, \pi_\Bo, \pi_\Co \right)
+&=
+\left(
+	\frac{\Pb}{\Pa + 2 \Pb},
+	\frac{\Pa}{\Pa + 2 \Pb},
+	\frac{\Pb}{\Pa + 2 \Pb}
+\right) \\
+&\propto
+\left( \Pb, \Pa, \Pb \right)
+\end{align}
+%
+Because the model is in continuous time
+and each state can reach every other state,
+we do not need to worry about subtleties involving reducibility or periodicity.
+
+\section{Time reversibility}
+
+It is easy to check that this rate matrix is time-reversible,
+with expected rates out of (and into) states $\Ao$ and $\Co$
+of $\frac{t \Pa \Pb}{\Pa + 2 \Pb}$ each,
+and with expected rate out of (and into) state $\Bo$
+of $\frac{2 t \Pa \Pb}{\Pa + 2 \Pb}$.
+
+\section{Expected rate}
+
+The total expected rate is
+$\frac{4 t \Pa \Pb}{\Pa + 2 \Pb}$.
+Note that the expected rate is proportional to the rate matrix scaling
+factor $t$.
+This proportionality is true in general, not just for this particular model.
+
+\section{Spectrum}
+
+The eigenvalues of the rate matrix are
+% eigenvalues {{-t a, t a, 0}, {t b, - (t b + t b), t b}, {0, t a, - t a}}
+$\{ 0, - t \Pa, - t \left( \Pa + 2 \Pb \right) \}$
+The nonzero eigenvalue
+$\lambda_2 \left( \Pa, \Pb, t \right)$
+is related to the eventual rate
+at which information about the initial state is lost.
+Note that this eigenvalue is proportional to the rate matrix scaling
+factor $t$.
+Again, this proportionality is true in general,
+not just for this particular model.
+
+\section{Transition matrix}
+
+The transition matrix is the matrix exponential of the rate matrix.
+% MatrixExp[{{-t a, t a, 0}, {t b, - 2 t b, t b}, {0, t a, - t a}}]
+\begin{equation}
+	\frac{1}{\Pa + 2 \Pb}
+	\begin{pmatrix}
+		\frac{1}{2} e^{-t \Pa} \left(
+			\Pa e^{-2 t \Pb} + 2 \Pb e^{t \Pa} + \Pa + 2 \Pb
+		\right) &
+		\Pa - \Pa e^{-t \left( \Pa + 2 \Pb \right)} &
+		\frac{1}{2} e^{-t \Pa} \left(
+			\Pa e^{-2 t \Pb} + 2 \Pb e^{t \Pa} - \Pa - 2 \Pb
+		\right) \\
+		\Pb - \Pb e^{ - t \left( \Pa + 2 \Pb \right) } &
+		\Pa + 2 \Pb e^{ - t \left( \Pa + 2 \Pb \right) } &
+		\Pb - \Pb e^{ - t \left( \Pa + 2 \Pb \right) } \\
+		\frac{1}{2} e^{-t \Pa} \left(
+			\Pa e^{-2 t \Pb} + 2 \Pb e^{t \Pa} - \Pa - 2 \Pb
+		\right) &
+		\Pa - \Pa e^{-t \left( \Pa + 2 \Pb \right)} &
+		\frac{1}{2} e^{-t \Pa} \left(
+			\Pa e^{-2 t \Pb} + 2 \Pb e^{t \Pa} + \Pa + 2 \Pb
+		\right)
+	\end{pmatrix}
+\end{equation}
+
+\end{document}
