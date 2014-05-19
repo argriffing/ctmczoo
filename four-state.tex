@@ -1,0 +1,144 @@
+% to build, do something like
+% rubber --pdf four-state
+
+
+\documentclass{article}
+
+\usepackage{graphics}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{mathtools}
+
+% required for \blacksquare
+\usepackage{amssymb}
+
+\usetikzlibrary{matrix,positioning}
+
+% label the states
+\providecommand{\Ao}{\text{a}}
+\providecommand{\Bo}{\text{b}}
+\providecommand{\Co}{\text{c}}
+\providecommand{\Do}{\text{d}}
+
+% label the two parameters
+\providecommand{\Pa}{\alpha}
+\providecommand{\Pb}{\beta}
+
+% for drawing block matrix structure
+\providecommand{\bs}{\blacksquare}
+\providecommand{\bx}{\Box}
+\providecommand{\cd}{\cdot}
+
+% helper functions for parenthesized sums
+\providecommand{\psab}{\left( \alpha + \beta \right)}
+\providecommand{\psaab}{\left( 2 \alpha + \beta \right)}
+\providecommand{\psabb}{\left( \alpha + 2 \beta \right)}
+
+
+% the default max matrix dimensions in amsmath is ten
+\setcounter{MaxMatrixCols}{20}
+
+% this is copied from the internet
+% and its purpose is to compensate for bad vertical spacing in amsmath pmatrix
+% by letting you do things like \begin{pmatrix}[1.5]
+\makeatletter
+\renewcommand*\env@matrix[1][\arraystretch]{%
+	  \edef\arraystretch{#1}%
+	    \hskip -\arraycolsep
+	      \let\@ifnextchar\new@ifnextchar
+	        \array{*\c@MaxMatrixCols c}}
+		\makeatother
+
+
+\begin{document}
+
+
+%\title{Expected rate vs. ``spectral rate''}
+%\author{Alex Griffing}
+%\maketitle
+
+\section{Introduction}
+
+In this technical note we review properties of a particular four-state
+continuous-time Markov chain over states $\{ \Ao, \Bo, \Co, \Do \}$
+with positive rates, deliberately over-parameterized with
+three variables so that the effects of scaling either or both of the rates
+can be easily observed.
+%
+FIXME
+\begin{equation}
+\bordermatrix{
+	    & \Ao  & \Bo & \Co & \Do \cr
+	\Ao & \bs  & t \Pa & \cdot & foo \cr
+	\Bo & t \Pb & \bs & t \Pb & foo \cr
+	\Co & \cdot & t \Pa & \bs & foo  \cr
+	\Do & \cdot & t \Pa & foo & \bs  \cr
+}
+\end{equation}
+
+\section{Stationary distribution}
+
+Because the rate matrix is symmetric,
+the stationary distribution is uniform over the four states.
+
+\section{Time reversibility}
+
+It is easy to check that this rate matrix is time-reversible.
+
+\section{Expected rate}
+
+FIXME
+
+The total expected rate is
+$\frac{4 t \Pa \Pb}{\Pa + 2 \Pb}$.
+Note that the expected rate is proportional to the rate matrix scaling
+factor $t$.
+This proportionality is true in general, not just for this particular model.
+
+\section{Spectrum}
+% eigenvalues {{-t (a+b), t b, 0, t a}, {t b, -t(a+b), ta , 0},
+% {0, t a, -t(a+b), t b}, {t a, 0, t b, -t(a+b)}}
+
+The eigenvalues of the rate matrix are
+$\{ 0, -2 t \Pa, -2 t \Pb, -2 t \left( \Pa + \Pb \right) \}$.
+The nonzero eigenvalue
+$\lambda_2 \left( \Pa, \Pb, t \right)$
+is related to the eventual rate
+at which information about the initial state is lost.
+Note that this eigenvalue is the smaller in magnitude of
+$-2 t \Pa$ and $-2 t \Pb$ and is proportional to the rate matrix scaling
+factor $t$.
+Again, this proportionality is true in general,
+not just for this particular model.
+
+\section{Transition matrix}
+
+The transition matrix is the matrix exponential of the rate matrix.
+% MatrixExp[ {{-t (a+b), t b, 0, t a}, {t b, -t(a+b), ta , 0},
+% {0, t a, -t(a+b), t b}, {t a, 0, t b, -t(a+b)}} ]
+\begin{equation}
+	\frac{1}{4} e^{-4 t \psab}
+	\begin{pmatrix}
+		e^{2t \psab} + e^{4t \psab} + e^{2t \psaab} + e^{2t \psabb} &
+		-e^{2t \psab} + e^{4t \psab} - e^{2t \psaab} + e^{2t \psabb} &
+		e^{2t \psab} + e^{4t \psab} - e^{2t \psaab} - e^{2t \psabb} &
+		-e^{2t \psab} + e^{4t \psab} + e^{2t \psaab} - e^{2t \psabb} \\
+		%
+		-e^{2t \psab} + e^{4t \psab} - e^{2t \psaab} + e^{2t \psabb} &
+		e^{2t \psab} + e^{4t \psab} + e^{2t \psaab} + e^{2t \psabb} &
+		-e^{2t \psab} + e^{4t \psab} + e^{2t \psaab} - e^{2t \psabb} &
+		e^{2t \psab} + e^{4t \psab} - e^{2t \psaab} - e^{2t \psabb} \\
+		%
+		e^{2t \psab} + e^{4t \psab} - e^{2t \psaab} - e^{2t \psabb} &
+		-e^{2t \psab} + e^{4t \psab} + e^{2t \psaab} - e^{2t \psabb} &
+		e^{2t \psab} + e^{4t \psab} + e^{2t \psaab} + e^{2t \psabb} &
+		-e^{2t \psab} + e^{4t \psab} - e^{2t \psaab} + e^{2t \psabb} \\
+		%
+		-e^{2t \psab} + e^{4t \psab} + e^{2t \psaab} - e^{2t \psabb} &
+		e^{2t \psab} + e^{4t \psab} - e^{2t \psaab} - e^{2t \psabb} &
+		-e^{2t \psab} + e^{4t \psab} - e^{2t \psaab} + e^{2t \psabb} &
+		e^{2t \psab} + e^{4t \psab} + e^{2t \psaab} + e^{2t \psabb}
+	\end{pmatrix}
+\end{equation}
+
+\end{document}
