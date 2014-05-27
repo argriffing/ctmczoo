@@ -13,11 +13,6 @@ from scipy.special import xlogy
 import algopy
 
 import matplotlib
-#matplotlib.use('GTK')
-#matplotlib.use('TkAgg')
-#matplotlib.use('Agg')
-#matplotlib.use('WX') #works
-#matplotlib.use('QTAgg')
 matplotlib.use('QT4Agg')
 import matplotlib.pyplot as pyplot
 
