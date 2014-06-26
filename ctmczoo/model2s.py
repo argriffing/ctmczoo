@@ -14,7 +14,7 @@ from scipy.special import xlogy
 
 import algopy
 
-from .util import eval_grad, eval_hess
+from util import eval_grad, eval_hess
 
 class Model(object):
 
