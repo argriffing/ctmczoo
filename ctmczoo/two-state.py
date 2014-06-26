@@ -139,9 +139,9 @@ def plot_1d_em():
 def plot_1d_em_retry():
     a_star = 1.0
     b_star = 1.0
-    t_star = 0.1
+    t_star = 0.8
     m_star = Model(a_star * t_star, b_star * t_star)
-    t_0 = 0.2
+    t_0 = 0.8
     m_0 = Model(a_star * t_0, b_star * t_0)
 
     print('notes:')
@@ -165,7 +165,8 @@ def plot_1d_em_retry():
 
     endpoint_neg_lls = []
     surrogate_neg_lls = []
-    ts = np.linspace(0.01, 0.3, 60)
+    #ts = np.linspace(0.01, 0.3, 60)
+    ts = np.linspace(t_star / 3, t_star * 3, 60)
     for t in ts:
         # We care about the parameter value defined by t.
         a = Model(a_star * t, b_star * t)
@@ -198,7 +199,9 @@ def plot_1d_em_retry():
 
     legend = ax.legend(loc='upper center')
 
-    pyplot.show()
+    #pyplot.show()
+
+    pyplot.savefig('surrogate-curvature.png')
 
 
 
