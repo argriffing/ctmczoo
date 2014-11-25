@@ -158,4 +158,22 @@ The transition matrix is the matrix exponential of the rate matrix.
 	\end{pmatrix}
 \end{equation}
 
+
+\section{Diagonalization}
+
+\begin{align}
+	\begin{pmatrix}
+		\Pb & -\Pa \\
+		\Pb & \Pb
+	\end{pmatrix}
+	\begin{pmatrix}
+		0 & 0 \\
+		0 & -\left( \Pa + \Pb \right) t
+	\end{pmatrix}
+	\begin{pmatrix}
+		\frac{1}{\Pa + \Pb} & \frac{\Pa}{\Pa + \Pb} \\
+		-\frac{1}{\Pa + \Pb} & \frac{1}{\Pa + \Pb}
+	\end{pmatrix}
+\end{align}
+
 \end{document}
